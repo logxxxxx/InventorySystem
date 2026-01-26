@@ -33,17 +33,16 @@ struct INVENTORYSYSTEM_API FYdv_InventoryFastArray : public FFastArraySerializer
 	FYdv_InventoryFastArray():OwnerComponent(nullptr) {}
 	FYdv_InventoryFastArray(UActorComponent* InOwnerComponent) : OwnerComponent(InOwnerComponent) {}
 	
-	TArray<FYdv_InventoryItemEntry> GetAllItems();
+	TArray<UYdv_InventoryItem*> GetAllItems();
 	
 	/**Start FastArraySerializer Contract*/
 	void PreReplicatedRemove(const TArrayView<int32> RemovedIndices, int32 FinalSize);
 	void PostReplicatedAdd(const TArrayView<int32> AddedIndices, int32 FinalSize);
-	void PostReplicatedChange(const TArrayView<int32> ChangedIndices, int32 FinalSize);
 	/**End of FFastArraySerializer Contract*/
 	
 	bool NetDeltaSerialize(FNetDeltaSerializeInfo& DeltaParms)
 	{
-		return FFastArraySerializer::FastArrayDeltaSerialize<FYdv_InventoryItemEntry, FYdv_InventoryFastArray>(Items, DeltaParms, *this);
+		return FFastArraySerializer::FastArrayDeltaSerialize<FYdv_InventoryItemEntry, FYdv_InventoryFastArray>(Entries, DeltaParms, *this);
 	}
 	
 	UYdv_InventoryItem* AddEntry(UYdv_InventoryItem* NewItem);
@@ -53,7 +52,7 @@ private:
 	friend UYdv_InventoryComponent;
 	
 	UPROPERTY()
-	TArray<FYdv_InventoryItemEntry> Items;
+	TArray<FYdv_InventoryItemEntry> Entries;
 	
 	UPROPERTY(NotReplicated)
 	TObjectPtr<UActorComponent> OwnerComponent;
