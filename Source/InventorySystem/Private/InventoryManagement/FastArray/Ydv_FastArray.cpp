@@ -1,5 +1,5 @@
 #include "InventoryManagement/FastArray/Ydv_FastArray.h"
-
+#include "Item/Components/Ydv_ItemComponent.h"
 #include "InventoryManagement/Components/Ydv_InventoryComponent.h"
 #include "Item/Ydv_InventoryItem.h"
 
@@ -64,7 +64,20 @@ UYdv_InventoryItem* FYdv_InventoryFastArray::AddEntry(UYdv_InventoryItem* NewIte
 
 UYdv_InventoryItem* FYdv_InventoryFastArray::AddEntry(UYdv_ItemComponent* NewItemComponent)
 {
-	return nullptr;
+	check(OwnerComponent);
+	AActor* OwnerActor = Cast<AActor>(OwnerComponent);
+	if (!IsValid(OwnerActor) || !IsValid(NewItemComponent)) return nullptr;
+	check(OwnerActor->HasAuthority());
+	UYdv_InventoryComponent* Comp = Cast<UYdv_InventoryComponent>(OwnerComponent);
+	if (!IsValid(Comp)) return nullptr;
+	
+	UYdv_InventoryItem* NewItem = NewItemComponent->GetItemManifest().ManifestItem(OwnerActor);
+	FYdv_InventoryItemEntry& Entry =  Entries.AddDefaulted_GetRef();
+	Entry.Item = NewItem;
+	
+	Comp->AddRepSubObject(Entry.Item);
+	MarkItemDirty(Entry);
+	return NewItem;
 }
 
 void FYdv_InventoryFastArray::RemoveEntry(UYdv_InventoryItem* ItemToRemove)

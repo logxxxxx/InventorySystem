@@ -2,7 +2,7 @@
 
 
 #include "InventoryManagement/Components/Ydv_InventoryComponent.h"
-
+#include "Net/UnrealNetwork.h"
 #include "Interaction/Ydv_Highlightable.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -11,7 +11,15 @@ UYdv_InventoryComponent::UYdv_InventoryComponent()
 {
 
 	PrimaryComponentTick.bCanEverTick = true;
+	SetIsReplicatedByDefault(true);
+	bReplicateUsingRegisteredSubObjectList = true;
 	
+}
+
+void UYdv_InventoryComponent::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(UYdv_InventoryComponent, InventoryArrayList);
 }
 
 
@@ -31,6 +39,15 @@ void UYdv_InventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	TraceForItems();
+}
+
+void UYdv_InventoryComponent::AddRepSubObject(UObject* SubObject)
+{
+	if (IsUsingRegisteredSubObjectList() && IsValid(SubObject) && IsReadyForReplication())
+	{
+		AddReplicatedSubObject(SubObject);
+	}
+	
 }
 
 void UYdv_InventoryComponent::TraceForItems()
