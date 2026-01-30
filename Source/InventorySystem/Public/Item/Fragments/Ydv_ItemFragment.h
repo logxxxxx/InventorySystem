@@ -19,7 +19,7 @@ struct FYdv_ItemFragment
 	void SetFragmentTag(FGameplayTag Tag) { FragmentTag = Tag; }
 	
 private:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Inventory")
+	UPROPERTY(EditAnywhere, Category = "Inventory")
 	FGameplayTag FragmentTag { FGameplayTag::EmptyTag};
 	
 };
