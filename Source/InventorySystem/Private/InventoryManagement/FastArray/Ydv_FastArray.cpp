@@ -52,7 +52,7 @@ void FYdv_InventoryFastArray::PostReplicatedAdd(const TArrayView<int32> AddedInd
 UYdv_InventoryItem* FYdv_InventoryFastArray::AddEntry(UYdv_InventoryItem* NewItem)
 {
 	check(OwnerComponent);
-	AActor* OwnerActor = Cast<AActor>(OwnerComponent);
+	AActor* OwnerActor = OwnerComponent->GetOwner();
 	if (!IsValid(OwnerActor) || !IsValid(NewItem)) return nullptr;
 	check(OwnerActor->HasAuthority());
 
@@ -65,7 +65,7 @@ UYdv_InventoryItem* FYdv_InventoryFastArray::AddEntry(UYdv_InventoryItem* NewIte
 UYdv_InventoryItem* FYdv_InventoryFastArray::AddEntry(UYdv_ItemComponent* NewItemComponent)
 {
 	check(OwnerComponent);
-	AActor* OwnerActor = Cast<AActor>(OwnerComponent);
+	AActor* OwnerActor = OwnerComponent->GetOwner();
 	if (!IsValid(OwnerActor) || !IsValid(NewItemComponent)) return nullptr;
 	check(OwnerActor->HasAuthority());
 	UYdv_InventoryComponent* Comp = Cast<UYdv_InventoryComponent>(OwnerComponent);
