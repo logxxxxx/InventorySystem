@@ -26,6 +26,10 @@ public class InventorySystem : ModuleRules
 			new string[]
 			{
 				"Core",
+				"NetCore",
+				"StructUtils",
+				"GameplayTags",
+				"GameplayAbilities",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
