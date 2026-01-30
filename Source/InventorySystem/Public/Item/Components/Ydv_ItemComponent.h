@@ -20,7 +20,11 @@ public:
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
+	void InitItemManifest(FYdv_ItemManifest CopyOfManifest);
 	FYdv_ItemManifest GetItemManifest() const { return ItemManifest; }
+	FYdv_ItemManifest& GetItemManifestMutable() { return ItemManifest; }
+	
+	
 private:
 	UPROPERTY(EditAnywhere,Replicated, Category="Inventory")
 	FYdv_ItemManifest ItemManifest;

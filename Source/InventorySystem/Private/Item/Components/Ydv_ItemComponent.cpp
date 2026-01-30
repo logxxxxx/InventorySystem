@@ -18,6 +18,11 @@ void UYdv_ItemComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
 	DOREPLIFETIME(UYdv_ItemComponent, ItemManifest);
 }
 
+void UYdv_ItemComponent::InitItemManifest(FYdv_ItemManifest CopyOfManifest)
+{
+	ItemManifest = CopyOfManifest;
+}
+
 
 void UYdv_ItemComponent::BeginPlay()
 {
