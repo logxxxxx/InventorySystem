@@ -15,8 +15,8 @@ class INVENTORYSYSTEM_API UYdv_InventoryItem : public UObject
 public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
+	FYdv_ItemManifest GetItemManifest() const { return ItemManifest.Get<FYdv_ItemManifest>();}
 	void SetItemManifest(const FYdv_ItemManifest& NewItemManifest);
-	
 private:
 	UPROPERTY(VisibleAnywhere, meta = (BaseStruct = "/Script/InventorySystem.Ydv_ItemManifest"), Replicated)
 	FInstancedStruct ItemManifest;
