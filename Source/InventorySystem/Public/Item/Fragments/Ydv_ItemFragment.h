@@ -23,3 +23,17 @@ private:
 	FGameplayTag FragmentTag { FGameplayTag::EmptyTag};
 	
 };
+
+/*
+ * Item fragment specifically for assimilation into a widget.
+ */
+class UInv_CompositeBase;
+USTRUCT(BlueprintType)
+struct FYdv_InventoryItemFragment : public FYdv_ItemFragment
+{
+	GENERATED_BODY()
+
+	virtual void Assimilate(UYdv_CompositeBase* Composite) const;
+protected:
+	bool MatchesWidgetTag(const UYdv_CompositeBase* Composite) const;
+};
