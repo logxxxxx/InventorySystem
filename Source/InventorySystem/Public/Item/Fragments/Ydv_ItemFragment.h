@@ -27,7 +27,7 @@ private:
 /*
  * Item fragment specifically for assimilation into a widget.
  */
-class UInv_CompositeBase;
+class UYdv_CompositeBase;
 USTRUCT(BlueprintType)
 struct FYdv_InventoryItemFragment : public FYdv_ItemFragment
 {
@@ -36,4 +36,35 @@ struct FYdv_InventoryItemFragment : public FYdv_ItemFragment
 	virtual void Assimilate(UYdv_CompositeBase* Composite) const;
 protected:
 	bool MatchesWidgetTag(const UYdv_CompositeBase* Composite) const;
+};
+
+USTRUCT(BlueprintType)
+struct FInv_TextFragment : public FYdv_InventoryItemFragment
+{
+	GENERATED_BODY()
+
+	FText GetText() const { return FragmentText; }
+	void SetText(const FText& Text) { FragmentText = Text; }
+	virtual void Assimilate(UYdv_CompositeBase* Composite) const override;
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	FText FragmentText;
+};
+USTRUCT(BlueprintType)
+struct FInv_ImageFragment : public FYdv_InventoryItemFragment
+{
+	GENERATED_BODY()
+
+	UTexture2D* GetIcon() const { return Icon; }
+	virtual void Assimilate(UYdv_CompositeBase* Composite) const override;
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	TObjectPtr<UTexture2D> Icon{nullptr};
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	FVector2D IconDimensions{44.f, 44.f};
 };
