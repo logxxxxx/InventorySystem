@@ -4,6 +4,7 @@
 #include "InventoryManagement/Components/Ydv_InventoryComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Interaction/Ydv_Highlightable.h"
+#include "Interaction/Components/Ydv_InteractionWidget.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -71,19 +72,39 @@ void UYdv_InventoryComponent::TraceForItems()
 	
 	if (CurrentActor.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("TraceForItems %s"), *CurrentActor->GetName());
-		if (UActorComponent* HighlightableComponent =  CurrentActor->FindComponentByInterface(UYdv_Highlightable::StaticClass());IsValid(HighlightableComponent))
-		{
-			IYdv_Highlightable::Execute_HighlightObject(HighlightableComponent);
-		}
+		ShowInteractionItem(CurrentActor.Get());
 	}
 	if (PreviousActor.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Lost TraceForItems %s"), *PreviousActor->GetName());
-		if (UActorComponent* HighlightableComponent =  PreviousActor->FindComponentByInterface(UYdv_Highlightable::StaticClass());IsValid(HighlightableComponent))
-		{
-			IYdv_Highlightable::Execute_UnHighlightObject(HighlightableComponent);
-		}
+		HideInteractionItem(PreviousActor.Get());
 	}
 }
+
+void UYdv_InventoryComponent::ShowInteractionItem(AActor* Actor) const
+{
+	if (!IsValid(Actor)) return;
+	if (UActorComponent* HighlightableComponent =  Actor->FindComponentByInterface(UYdv_Highlightable::StaticClass());IsValid(HighlightableComponent))
+	{
+		IYdv_Highlightable::Execute_HighlightObject(HighlightableComponent);
+	}
+	if (UYdv_InteractionWidget* InteractionWidget = Actor->FindComponentByClass<UYdv_InteractionWidget>(); IsValid(InteractionWidget))
+	{
+		InteractionWidget->ShowInteractionWidget();
+	}
+	
+}
+
+void UYdv_InventoryComponent::HideInteractionItem(AActor* Actor) const
+{
+	if (!IsValid(Actor)) return;
+	if (UActorComponent* HighlightableComponent =  Actor->FindComponentByInterface(UYdv_Highlightable::StaticClass());IsValid(HighlightableComponent))
+	{
+		IYdv_Highlightable::Execute_UnHighlightObject(HighlightableComponent);
+	}
+	if (UYdv_InteractionWidget* InteractionWidget = Actor->FindComponentByClass<UYdv_InteractionWidget>(); IsValid(InteractionWidget))
+	{
+		InteractionWidget->HideInteractionWidget();
+	}
+}
+
 

@@ -4,6 +4,7 @@
 #include "GameplayTagContainer.h"
 #include "Ydv_ItemManifest.generated.h"
 
+class UYdv_CompositeBase;
 struct FYdv_ItemFragment;
 class UYdv_InventoryItem;
 
@@ -14,6 +15,7 @@ struct INVENTORYSYSTEM_API FYdv_ItemManifest
 	
 	UYdv_InventoryItem* ManifestItem(UObject* NewOuter) const;
 	TArray<TInstancedStruct<FYdv_ItemFragment>>& GetFragmentsMutable() { return ItemFragments; }
+	void AssimilateInventoryFragments(UYdv_CompositeBase* Composite) const;
 	
 	template<typename T> requires std::derived_from<T, FYdv_ItemFragment>
 	const T* GetFragmentOfTypeWithTag(const FGameplayTag& FragmentTag) const;

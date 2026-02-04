@@ -7,6 +7,7 @@
 #include "InventoryManagement/FastArray/Ydv_FastArray.h"
 #include "Ydv_InventoryComponent.generated.h"
 
+class UYdv_PickupWidget;
 class UYdv_InventoryItem;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FInventoryItemChange, UYdv_InventoryItem* , Item);
 
@@ -25,13 +26,12 @@ public:
 	
 	void AddRepSubObject(UObject* SubObject);
 	
-public:
+
 	FInventoryItemChange OnItemAddedToTheInventory;
 	FInventoryItemChange OnItemRemovedFromTheInventory;
 
 protected:
 	virtual void BeginPlay() override;
-
 
 
 private:
@@ -47,9 +47,17 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "InventorySystem")
 	TEnumAsByte<ECollisionChannel> TraceChannel;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "InventorySystem")
+	TSubclassOf<UYdv_PickupWidget> PickupWidgetClass;
+	
+	UPROPERTY()
+	TObjectPtr<UYdv_PickupWidget> PickupWidget;
+	
+	
 	TWeakObjectPtr<AActor> CurrentActor;
 	TWeakObjectPtr<AActor> PreviousActor;
 	
-private:
 	void TraceForItems();
+	void ShowInteractionItem(AActor* Actor) const;
+	void HideInteractionItem(AActor* Actor) const;
 };
