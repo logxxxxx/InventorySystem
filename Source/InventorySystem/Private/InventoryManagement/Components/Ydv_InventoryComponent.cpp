@@ -2,13 +2,10 @@
 
 
 #include "InventoryManagement/Components/Ydv_InventoryComponent.h"
-
-#include "Blueprint/UserWidget.h"
 #include "Net/UnrealNetwork.h"
 #include "Interaction/Ydv_Highlightable.h"
 #include "Interaction/Components/Ydv_InteractionWidget.h"
 #include "Kismet/GameplayStatics.h"
-#include "Widgets/Pickup/Ydv_PickupWidget.h"
 
 
 UYdv_InventoryComponent::UYdv_InventoryComponent()
