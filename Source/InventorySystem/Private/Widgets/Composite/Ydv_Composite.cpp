@@ -33,3 +33,11 @@ void UYdv_Composite::Collapse()
 		Child->Collapse();
 	}
 }
+
+void UYdv_Composite::Expand()
+{
+	for (auto& Child : Children)
+	{
+		Child->Expand();
+	}
+}

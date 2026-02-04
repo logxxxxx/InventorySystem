@@ -17,7 +17,7 @@ public:
 	FGameplayTag GetFragmentTag() const { return WidgetFragmentTag; }
 	void SetFragmentTag(const FGameplayTag& Tag) { WidgetFragmentTag = Tag; }
 	virtual void Collapse();
-	void Expand();
+	virtual void Expand();
 
 	using FuncType = TFunction<void(UYdv_CompositeBase*)>;
 	virtual void ApplyFunction(FuncType Function) {}

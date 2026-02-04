@@ -4,6 +4,7 @@
 #include "GameplayTagContainer.h"
 #include "Ydv_ItemManifest.generated.h"
 
+class UYdv_CompositeBase;
 struct FYdv_ItemFragment;
 class UYdv_InventoryItem;
 
