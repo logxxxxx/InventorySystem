@@ -2,7 +2,6 @@
 #include "Components/HorizontalBox.h"
 #include "Components/SizeBox.h"
 #include "Components/Spacer.h"
-#include "Interfaces/IHttpResponse.h"
 #include "InventoryManagement/Components/Ydv_InventoryComponent.h"
 #include "InventoryManagement/Utils/Ydv_InventoryStatics.h"
 #include "Item/Ydv_InventoryItem.h"
