@@ -33,6 +33,14 @@ void FInv_ImageFragment::Assimilate(UYdv_CompositeBase* Composite) const
 	if (!IsValid(Image)) return;
 	
 	Image->SetImage(Icon);
-	Image->SetBoxSize(IconDimensions);
-	Image->SetImageSize(IconDimensions);
+}
+
+void FYdv_StackableFragment::Assimilate(UYdv_CompositeBase* Composite) const
+{
+	FYdv_InventoryItemFragment::Assimilate(Composite);
+	if (!MatchesWidgetTag(Composite)) return ;
+	
+	UYdv_Leaf_Text* LeafText = Cast<UYdv_Leaf_Text>(Composite);
+	if (!IsValid(LeafText)) return;
+	LeafText->SetText(FText::AsNumber(StackCount));
 }

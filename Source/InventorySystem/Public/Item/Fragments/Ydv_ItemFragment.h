@@ -68,3 +68,22 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	FVector2D IconDimensions{44.f, 44.f};
 };
+
+USTRUCT(BlueprintType)
+struct FYdv_StackableFragment : public FYdv_InventoryItemFragment
+{
+	GENERATED_BODY()
+
+	int32 GetMaxStackSize() const { return MaxStackSize; }
+	int32 GetStackCount() const { return StackCount; }
+	void SetStackCount(int32 Count) { StackCount = Count; }
+	virtual void Assimilate(UYdv_CompositeBase* Composite) const override;
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	int32 MaxStackSize{1};
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	int32 StackCount{1};
+};
