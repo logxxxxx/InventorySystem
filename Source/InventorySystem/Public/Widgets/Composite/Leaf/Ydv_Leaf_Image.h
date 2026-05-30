@@ -14,15 +14,28 @@ class INVENTORYSYSTEM_API UYdv_Leaf_Image : public UYdv_Leaf
 	GENERATED_BODY()
 
 public:
+	UFUNCTION( BlueprintCallable ,Category = "InventorySystem")
 	void SetImage(UTexture2D* Texture) const;
-	void SetBoxSize(const FVector2D& Size) const;
-	void SetImageSize(const FVector2D& Size) const;
-	FVector2D GetImageSize() const;
+	
+protected:
+	UFUNCTION( BlueprintCallable, Category = "InventorySystem")
+	void SetSizeBoxSize();
+	
+	UFUNCTION(BlueprintCallable, Category = "InventorySystem" )
+	void SetImageSize();
 	
 private:
-	UPROPERTY(meta = (BindWidget))
-	TObjectPtr<UImage> Image_Icon;
-
+	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<USizeBox> SizeBox_Icon;
+	
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UImage> Image_Icon;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "InventorySystem|ImageProperties", meta = (AllowPrivateAccess))
+	FVector2D SizeBoxSize;
+	
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "InventorySystem|ImageProperties", meta = (AllowPrivateAccess))
+	FDeprecateSlateVector2D ImageSize;
+	
 };

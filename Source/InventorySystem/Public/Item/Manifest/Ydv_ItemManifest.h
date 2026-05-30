@@ -15,6 +15,7 @@ struct INVENTORYSYSTEM_API FYdv_ItemManifest
 	
 	UYdv_InventoryItem* ManifestItem(UObject* NewOuter) const;
 	TArray<TInstancedStruct<FYdv_ItemFragment>>& GetFragmentsMutable() { return ItemFragments; }
+	FGameplayTag GetItemTag() const { return ItemTag; }
 	void AssimilateInventoryFragments(UYdv_CompositeBase* Composite) const;
 	
 	template<typename T> requires std::derived_from<T, FYdv_ItemFragment>
@@ -30,6 +31,9 @@ struct INVENTORYSYSTEM_API FYdv_ItemManifest
 	TArray<const T*> GetAllFragmentsOfType() const;
 	
 private:
+	UPROPERTY(EditAnywhere, Category = "Inventory")
+	FGameplayTag ItemTag;
+	
 	UPROPERTY(EditAnywhere, Category = "Inventory" , meta = (ExcludeBaseStruct))
 	TArray<TInstancedStruct<FYdv_ItemFragment>> ItemFragments;
 };

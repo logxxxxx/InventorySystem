@@ -71,7 +71,7 @@ UYdv_InventoryItem* FYdv_InventoryFastArray::AddEntry(UYdv_ItemComponent* NewIte
 	UYdv_InventoryComponent* Comp = Cast<UYdv_InventoryComponent>(OwnerComponent);
 	if (!IsValid(Comp)) return nullptr;
 	
-	UYdv_InventoryItem* NewItem = NewItemComponent->GetItemManifest().ManifestItem(OwnerActor);
+	UYdv_InventoryItem* NewItem = NewItemComponent->GetItemManifest().ManifestItem(Comp);
 	FYdv_InventoryItemEntry& Entry =  Entries.AddDefaulted_GetRef();
 	Entry.Item = NewItem;
 	
@@ -91,4 +91,13 @@ void FYdv_InventoryFastArray::RemoveEntry(UYdv_InventoryItem* ItemToRemove)
 			break;
 		}
 	}
+}
+
+UYdv_InventoryItem* FYdv_InventoryFastArray::FindFirstItemByType(const FGameplayTag& ItemTag)
+{
+	auto* FoundItem = Entries.FindByPredicate([ItemType = ItemTag](const FYdv_InventoryItemEntry& Entry)
+{
+	return IsValid(Entry.Item) && Entry.Item->GetItemManifest().GetItemTag().MatchesTagExact(ItemType);
+});
+	return FoundItem ? FoundItem->Item : nullptr;
 }

@@ -3,6 +3,7 @@
 #include "Net/Serialization/FastArraySerializer.h"
 #include "Ydv_FastArray.generated.h"
 
+struct FGameplayTag;
 class UYdv_ItemComponent;
 class UYdv_InventoryItem;
 class UYdv_InventoryComponent;
@@ -48,6 +49,7 @@ struct INVENTORYSYSTEM_API FYdv_InventoryFastArray : public FFastArraySerializer
 	UYdv_InventoryItem* AddEntry(UYdv_InventoryItem* NewItem);
 	UYdv_InventoryItem* AddEntry(UYdv_ItemComponent* NewItemComponent);
 	void RemoveEntry(UYdv_InventoryItem* ItemToRemove);
+	UYdv_InventoryItem* FindFirstItemByType(const FGameplayTag& ItemType);
 private:
 	friend UYdv_InventoryComponent;
 	

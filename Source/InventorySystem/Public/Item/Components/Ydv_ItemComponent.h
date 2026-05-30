@@ -24,7 +24,7 @@ public:
 	FYdv_ItemManifest GetItemManifest() const { return ItemManifest; }
 	FYdv_ItemManifest& GetItemManifestMutable() { return ItemManifest; }
 	
-	
+	void PickedUp();
 private:
 	UPROPERTY(EditAnywhere,Replicated, Category="Inventory")
 	FYdv_ItemManifest ItemManifest;
