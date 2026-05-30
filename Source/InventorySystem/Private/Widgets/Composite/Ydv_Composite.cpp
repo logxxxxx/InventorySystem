@@ -9,13 +9,13 @@ void UYdv_Composite::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 	WidgetTree->ForEachWidget([this](UWidget* Widget)
-{
-	if (UYdv_CompositeBase* Composite = Cast<UYdv_CompositeBase>(Widget); IsValid(Composite))
 	{
-		Children.Add(Composite);
-		Composite->Collapse();
-	}
-});
+		if (UYdv_CompositeBase* Composite = Cast<UYdv_CompositeBase>(Widget); IsValid(Composite))
+		{
+			Children.Add(Composite);
+			Composite->Collapse();
+		}
+	});
 }
 
 void UYdv_Composite::ApplyFunction(FuncType Function)

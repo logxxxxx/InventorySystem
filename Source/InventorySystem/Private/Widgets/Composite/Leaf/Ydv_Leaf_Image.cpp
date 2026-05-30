@@ -8,21 +8,21 @@
 
 void UYdv_Leaf_Image::SetImage(UTexture2D* Texture) const
 {
+	if (!IsValid(Image_Icon)) return;
 	Image_Icon->SetBrushFromTexture(Texture);
 }
 
-void UYdv_Leaf_Image::SetBoxSize(const FVector2D& Size) const
+void UYdv_Leaf_Image::SetSizeBoxSize()
 {
-	SizeBox_Icon->SetWidthOverride(Size.X);
-	SizeBox_Icon->SetHeightOverride(Size.Y);
+	if (!IsValid(SizeBox_Icon)) return;
+	SizeBox_Icon->SetHeightOverride(SizeBoxSize.Y);
+	SizeBox_Icon->SetWidthOverride(SizeBoxSize.X);
 }
 
-void UYdv_Leaf_Image::SetImageSize(const FVector2D& Size) const
+void UYdv_Leaf_Image::SetImageSize()
 {
-	Image_Icon->SetDesiredSizeOverride(Size);
-}
-
-FVector2D UYdv_Leaf_Image::GetImageSize() const
-{
-	return Image_Icon->GetDesiredSize();
+	if (!IsValid(Image_Icon)) return;
+	FSlateBrush Brush;
+	Brush.ImageSize = ImageSize;
+	Image_Icon->SetBrush(Brush);
 }
